@@ -13,7 +13,11 @@ class User(object):
 
     # create user //id='...',pw='...'
     def crate_user(self, line):
-        id, pw = re.findall('id=(.*?)\s*?,\s*?pw=(.*?)', line)[0]
+        try:
+            id, pw = re.findall('id=(.*?)\s*?,\s*?pw=(.*?)', line)[0]
+        except IndexError:
+            print('语法错误')
+            return False
         name = [i[0] for i in self.user]
         if id in name:
             print('已有该用户')
@@ -45,12 +49,16 @@ class User(object):
         rights = rights.split(',')
         rights = [i.strip() for i in rights]
 
-        db, tb = re.findall('on\s*?(.*?)\s*?\.\s*?(.*?)\s*?to', line)[0]
-        db, tb = db.strip(), tb.strip()
+        try:
+            db, tb = re.findall('on\s*?(.*?)\s*?\.\s*?(.*?)\s*?to', line)[0]
+            db, tb = db.strip(), tb.strip()
 
-        id, pw = re.findall('to\s*?\((.*),(.*)\)', line)[0]
-        id, pw = id.strip(), pw.strip()
-        print(id, pw)
+            id, pw = re.findall('to\s*?\((.*),(.*)\)', line)[0]
+            id, pw = id.strip(), pw.strip()
+            print(id, pw)
+        except IndexError:
+            print('语法错误')
+            return False
 
         if db not in db:
             print('无该数据库')
@@ -77,5 +85,6 @@ class User(object):
 
 if __name__ == '__main__':
     u = User()
-    u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
+    u.crate_user('id=pw=')
+    # u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
 
