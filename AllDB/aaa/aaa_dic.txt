@@ -1,0 +1,1 @@
+{'root': {'primary': ['id'], 'foreign': [], 'id': ['char', 10, 1], 'pw': ['char', 11, 0]}}
