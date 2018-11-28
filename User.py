@@ -7,17 +7,19 @@ class User(object):
         usr = fp.readlines()
         fp.close()
         usr = [eval(i) for i in usr]
-        self.root = ['root', 'root', self.right, ['*', '*']]
         self.user = usr
-        self.right = ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'user']
+        self.right = ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'use']
+        self.root = ['root', 'root', self.right, ['*', '*']]
 
     # create user //id='...',pw='...'
     def crate_user(self, line):
         try:
             id, pw = re.findall('id=(.*?)\s*?,\s*?pw=(.*?)', line)[0]
-        except IndexError:
+        except ValueError:
             print('语法错误')
             return False
+
+        id, pw = id.strip("'"), pw.strip("'")  # 去除首尾'
         name = [i[0] for i in self.user]
         if id in name:
             print('已有该用户')
@@ -25,9 +27,9 @@ class User(object):
 
         new = [id, pw, [], []]  # id pw 权限表 数据库.表名
         self.user.append(new)
-        self.change_file()
+        self.updata_file()
 
-    def change_file(self):
+    def updata_file(self):
         fp = open('/Users/hexinrong/PycharmProjects/minidatabase/AllDB/user.txt', 'w')
         for i in self.user:
             fp.write(str(i)+'\n')
@@ -38,7 +40,7 @@ class User(object):
         for i in range(len(self.user)):
             if id == self.user[i][0]:
                 if pw == self.user[i][1]:
-                    return i
+                    return i+1
                 else:
                     print('密码错误')
                     return False
@@ -46,7 +48,7 @@ class User(object):
         return False
 
     # grant //权限 //on 数据库.* to (id, pw);
-    def grant_rights(self, rights, line, db, table):
+    def grant_rights(self, rights, line, database, table):
         rights = rights.split(',')
         rights = [i.strip() for i in rights]
         rights = list(set(rights))  # 去重
@@ -57,16 +59,15 @@ class User(object):
 
             id, pw = re.findall('to\s*?\((.*),(.*)\)', line)[0]
             id, pw = id.strip(), pw.strip()
-            print(id, pw)
-        except IndexError:
+        except ValueError:
             print('语法错误')
             return False
 
-        if db not in db:
+        if db not in database:
             print('无该数据库')
             return False
 
-        if tb != '*' and tb not in tb:
+        if tb != '*' and tb not in table:
             print('无该表')
             return False
 
@@ -74,6 +75,7 @@ class User(object):
         if not check:
             return False
 
+        check -= 1
         if 'all' in rights:
             self.user[check][2] = self.right
         else:
@@ -83,30 +85,62 @@ class User(object):
                     return False
             self.user[check][2] = rights
 
-        self.user[check][2] = [db, tb]
-
-        self.change_file()
+        self.user[check][3] = [db, tb]
+        self.updata_file()
 
     # sql -u //id pw
     def sign_in(self, line):
         try:
             id, pw = line.split()
-        except IndexError:
+        except ValueError:
             print('语法错误')
             return False
 
+        id, pw = id.strip("'"), pw.strip("'")  # 去除首尾'
         _ = self.check_name_pw(id, pw)
         if _:
-            return _
+            return self.user[_-1]
         else:
             return False
 
     def get_user(self):
         return self.user
 
+    # Delete FROM user //Where User='test' and Host='localhost';
+    def delete_user(self, line):
+        id = re.findall('where user=(.*)', line)
+        j = -1
+        for i in range(len(self.user)):
+            if self.user[i][0] == id:
+                j = i
+                break
+        if j == -1:
+            print('无此用户')
+            return False
+        else:
+            self.user.pop(j)
+            self.updata_file()
+            return True
+
+    def check_db_tb_rights(self, user, db=[], tb=[]):
+        if user[3][0] == '*':
+            return True
+        for i in db:
+            if i not in user[3][0]:
+                print('您无使用该数据库的权限')
+                return False
+        if user[3][1] == '*':
+            return True
+        else:
+            for i in tb:
+                if i not in user[3][1]:
+                    print('您无权使用该表')
+                    return False
+
 
 if __name__ == '__main__':
     u = User()
-    u.crate_user("id='test',pw='test'")
-    u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
+    # u.crate_user("id='test',pw='test'")
+    # u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
+    print("'ew".strip("'"))
 

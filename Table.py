@@ -21,7 +21,6 @@ data dict:
     type_length = ('char', 'int', 'float', 'bool', 'string', 'verchar')
 '''
 
-
 class CreateTable(object):
     def __init__(self, db_name):
         self.db_path = '/Users/hexinrong/PycharmProjects/minidatabase/AllDB/' + db_name + '/'
