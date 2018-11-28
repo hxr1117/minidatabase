@@ -7,9 +7,9 @@ class User(object):
         usr = fp.readlines()
         fp.close()
         usr = [eval(i) for i in usr]
-        self.root = usr[0]
+        self.root = ['root', 'root', self.right, ['*', '*']]
         self.user = usr
-        self.right = ['select', 'update', 'drop', 'all', 'create']
+        self.right = ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'user']
 
     # create user //id='...',pw='...'
     def crate_user(self, line):
@@ -25,6 +25,7 @@ class User(object):
 
         new = [id, pw, [], []]  # id pw 权限表 数据库.表名
         self.user.append(new)
+        self.change_file()
 
     def change_file(self):
         fp = open('/Users/hexinrong/PycharmProjects/minidatabase/AllDB/user.txt', 'w')
@@ -48,6 +49,7 @@ class User(object):
     def grant_rights(self, rights, line, db, table):
         rights = rights.split(',')
         rights = [i.strip() for i in rights]
+        rights = list(set(rights))  # 去重
 
         try:
             db, tb = re.findall('on\s*?(.*?)\s*?\.\s*?(.*?)\s*?to', line)[0]
@@ -72,19 +74,39 @@ class User(object):
         if not check:
             return False
 
-        for i in rights:
-            if i not in self.right:
-                print('无此权限')
-                return False
+        if 'all' in rights:
+            self.user[check][2] = self.right
+        else:
+            for i in rights:
+                if i not in self.right:
+                    print('无此权限')
+                    return False
+            self.user[check][2] = rights
 
-        self.user[check][2] = rights
         self.user[check][2] = [db, tb]
 
         self.change_file()
 
+    # sql -u //id pw
+    def sign_in(self, line):
+        try:
+            id, pw = line.split()
+        except IndexError:
+            print('语法错误')
+            return False
+
+        _ = self.check_name_pw(id, pw)
+        if _:
+            return _
+        else:
+            return False
+
+    def get_user(self):
+        return self.user
+
 
 if __name__ == '__main__':
     u = User()
-    u.crate_user('id=pw=')
-    # u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
+    u.crate_user("id='test',pw='test'")
+    u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
 

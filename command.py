@@ -2,6 +2,7 @@ import os
 from DataBase import CreateDB, DropDB
 from Table import CreateTable, DropTable, ChangeValue, ShowTable, AlterTable
 from index import CreateIndex
+from User import User
 
 
 class Main(object):
@@ -9,12 +10,20 @@ class Main(object):
         self.database = ''
         self.all_table = []
         self.all_db = CreateDB().database()
+        self.all_user = User().get_user()
+        self.user = []
+        self.root = User().root
 
     def check_name(self, name):
         if name[0] == '_' or ('Z' >= name[0] >= 'A') or ('z' >= name[0] >= 'a'):
             return True
         else:
             return False
+
+    def check_right(self, line):
+        if line in self.user[2]:
+            return True
+        return False
 
     def main(self):
         while True:
@@ -170,6 +179,22 @@ class Main(object):
                 else:
                     ch = ChangeValue(self.database)
                     ch.update_value(line[1], line[2])
+
+            elif line[0] == 'sql' and line[1] == '-u':
+                _ = line[2].split()
+                try:
+                    if _[0] == self.root[0]:
+                        if _[1] == self.root[1]:
+                            self.user = self.root
+                            continue
+                        else:
+                            print('密码错误')
+                            continue
+                except IndexError:
+                    pass
+                _ = User().sign_in(line[2])
+                if _:
+                    self.user = _
             else:
                 print('语法错误')
 
