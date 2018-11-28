@@ -216,6 +216,7 @@ class Main(object):
             elif line[0] == 'grant':
                 if self.user[0] == 'root':
                     User().grant_rights(line[1], line[2], self.all_db, self.all_table)
+
             else:
                 print('语法错误')
 
