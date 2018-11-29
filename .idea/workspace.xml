@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d92bb679-ac72-4428-a065-83c94d61bdf6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AllDB/user.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AllDB/user.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllDB/ccc/ccc_dic.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AllDB/ccc/ccc_dic.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Table.py" beforeDir="false" afterPath="$PROJECT_DIR$/Table.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/User.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/command.py" beforeDir="false" afterPath="$PROJECT_DIR$/command.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/select.py" beforeDir="false" afterPath="$PROJECT_DIR$/Selection.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,12 +17,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/minidatabase$select.coverage" NAME="select Coverage Results" MODIFIED="1543406114528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minidatabase$select.coverage" NAME="select Coverage Results" MODIFIED="1543494506424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minidatabase$User.coverage" NAME="User Coverage Results" MODIFIED="1543395389961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minidatabase$createDB.coverage" NAME="createDB Coverage Results" MODIFIED="1542095905984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minidatabase$index.coverage" NAME="index Coverage Results" MODIFIED="1543115772475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minidatabase$Table.coverage" NAME="Table Coverage Results" MODIFIED="1542890199248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minidatabase$line.coverage" NAME="line Coverage Results" MODIFIED="1543459636560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minidatabase$Table.coverage" NAME="Table Coverage Results" MODIFIED="1543499466602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minidatabase$line.coverage" NAME="line Coverage Results" MODIFIED="1543472967806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -39,71 +41,76 @@
       <file leaf-file-name="Table.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Table.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="402" column="68" lean-forward="true" selection-start-line="402" selection-start-column="68" selection-end-line="402" selection-end-column="68" />
+            <state relative-caret-position="147">
+              <caret line="847" lean-forward="true" selection-start-line="847" selection-end-line="847" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#1289#3506#0" />
+                <element signature="e#3538#4578#0" />
                 <element signature="e#3736#4578#0" />
+                <element signature="e#4612#19557#0" />
                 <element signature="e#4847#4923#0" />
                 <element signature="e#4961#5092#0" />
                 <element signature="e#5181#7147#0" />
                 <element signature="e#7193#7750#0" />
                 <element signature="e#7804#12696#0" />
                 <element signature="e#14556#19557#0" />
+                <element signature="e#19590#23226#0" />
                 <element signature="e#19925#22336#0" />
                 <element signature="e#22377#23226#0" />
+                <element signature="e#23554#24462#0" />
+                <element signature="e#26545#26698#0" />
+                <element signature="e#26835#27640#0" />
+                <element signature="e#27748#28350#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="command.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Selection.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Selection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#1365#2399#0" />
+                <element signature="e#2873#2956#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="teacher.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AllDB/ccc/teacher.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ccc_dic.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AllDB/ccc/ccc_dic.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="50" selection-start-column="50" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="root.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AllDB/ccc/root.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="command.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/command.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="249" column="7" lean-forward="true" selection-start-line="249" selection-start-column="7" selection-end-line="249" selection-end-column="7" />
+            <state relative-caret-position="2825">
+              <caret line="231" lean-forward="true" selection-start-line="231" selection-end-line="231" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#1139#2537#0" />
-                <element signature="e#2621#3386#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1482">
-              <caret line="54" column="52" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/User.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="136" column="39" lean-forward="true" selection-start-line="136" selection-start-column="39" selection-end-line="136" selection-end-column="39" />
-              <folding>
-                <element signature="e#504#937#0" />
-                <element signature="e#1599#2652#0" />
-                <element signature="e#2712#3010#0" />
-                <element signature="e#3168#3514#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="select.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/select.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -166,11 +173,13 @@
         <option value="$PROJECT_DIR$/AllDB/ccc/teacher_pw_index.txt" />
         <option value="$PROJECT_DIR$/AllDB/ccc/teacher.txt" />
         <option value="$PROJECT_DIR$/index.py" />
-        <option value="$PROJECT_DIR$/Table.py" />
         <option value="$PROJECT_DIR$/AllDB/user.txt" />
-        <option value="$PROJECT_DIR$/select.py" />
         <option value="$PROJECT_DIR$/User.py" />
+        <option value="$PROJECT_DIR$/select.py" />
         <option value="$PROJECT_DIR$/command.py" />
+        <option value="$PROJECT_DIR$/AllDB/ccc/ccc_dic.txt" />
+        <option value="$PROJECT_DIR$/Table.py" />
+        <option value="$PROJECT_DIR$/Selection.py" />
       </list>
     </option>
   </component>
@@ -207,6 +216,12 @@
               <item name="minidatabase" type="462c0819:PsiDirectoryNode" />
               <item name="AllDB" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="minidatabase" type="b2602c69:ProjectViewProjectNode" />
+              <item name="minidatabase" type="462c0819:PsiDirectoryNode" />
+              <item name="AllDB" type="462c0819:PsiDirectoryNode" />
+              <item name="ccc" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -232,7 +247,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.line">
+  <component name="RunManager" selected="Python.Table">
     <configuration name="Table" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="minidatabase" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -322,7 +337,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/select.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Selection.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -337,11 +352,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.line" />
+        <item itemvalue="Python.Table" />
         <item itemvalue="Python.select" />
+        <item itemvalue="Python.line" />
         <item itemvalue="Python.User" />
         <item itemvalue="Python.index" />
-        <item itemvalue="Python.Table" />
       </list>
     </recent_temporary>
   </component>
@@ -377,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543410616823</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add clear rights on user">
+      <created>1543460141162</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1543460141162</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -389,7 +411,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32876712" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.28518057" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.29265255" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15473442" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -428,44 +450,45 @@
     <MESSAGE value="no check the rights of database and table" />
     <MESSAGE value="check the rights of using database" />
     <MESSAGE value="where interpret" />
-    <option name="LAST_COMMIT_MESSAGE" value="where interpret" />
+    <MESSAGE value="add clear rights on user" />
+    <option name="LAST_COMMIT_MESSAGE" value="add clear rights on user" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>132</line>
+          <line>136</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>467</line>
+          <line>471</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>468</line>
+          <line>472</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>524</line>
+          <line>528</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>534</line>
+          <line>538</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>538</line>
+          <line>542</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>552</line>
+          <line>556</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -475,17 +498,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>182</line>
+          <line>186</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>163</line>
+          <line>167</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>167</line>
+          <line>171</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -510,22 +533,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>377</line>
+          <line>381</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>550</line>
+          <line>554</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>551</line>
+          <line>555</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Table.py</url>
-          <line>562</line>
+          <line>566</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -538,11 +561,26 @@
           <line>79</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/command.py</url>
+          <line>101</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Table.py</url>
+          <line>787</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Table.py</url>
+          <line>769</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="99" />
+      <option name="time" value="116" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -562,16 +600,22 @@
           <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1289#3506#0" />
+            <element signature="e#3538#4578#0" />
             <element signature="e#3736#4578#0" />
+            <element signature="e#4612#19557#0" />
             <element signature="e#4847#4923#0" />
             <element signature="e#4961#5092#0" />
             <element signature="e#5181#7147#0" />
             <element signature="e#7193#7750#0" />
             <element signature="e#7804#12696#0" />
             <element signature="e#14556#19557#0" />
+            <element signature="e#19590#23226#0" />
             <element signature="e#19925#22336#0" />
             <element signature="e#22377#23226#0" />
+            <element signature="e#23554#24462#0" />
+            <element signature="e#26545#26698#0" />
+            <element signature="e#26835#27640#0" />
+            <element signature="e#27748#28350#0" />
           </folding>
         </state>
       </provider>
@@ -582,8 +626,6 @@
           <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1139#2537#0" />
-            <element signature="e#2621#3386#0" />
           </folding>
         </state>
       </provider>
@@ -604,17 +646,22 @@
           <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
           <folding>
             <element signature="e#504#937#0" />
+            <element signature="e#974#1133#0" />
             <element signature="e#1599#2652#0" />
             <element signature="e#2712#3010#0" />
-            <element signature="e#3168#3514#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/select.py">
+    <entry file="file://$PROJECT_DIR$/Selection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#1365#2399#0" />
+            <element signature="e#2873#2956#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -641,16 +688,22 @@
           <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1289#3506#0" />
+            <element signature="e#3538#4578#0" />
             <element signature="e#3736#4578#0" />
+            <element signature="e#4612#19557#0" />
             <element signature="e#4847#4923#0" />
             <element signature="e#4961#5092#0" />
             <element signature="e#5181#7147#0" />
             <element signature="e#7193#7750#0" />
             <element signature="e#7804#12696#0" />
             <element signature="e#14556#19557#0" />
+            <element signature="e#19590#23226#0" />
             <element signature="e#19925#22336#0" />
             <element signature="e#22377#23226#0" />
+            <element signature="e#23554#24462#0" />
+            <element signature="e#26545#26698#0" />
+            <element signature="e#26835#27640#0" />
+            <element signature="e#27748#28350#0" />
           </folding>
         </state>
       </provider>
@@ -672,10 +725,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/select.py">
+    <entry file="file://$PROJECT_DIR$/Selection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#1365#2399#0" />
+            <element signature="e#2873#2956#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -692,8 +750,6 @@
           <caret line="203" column="41" lean-forward="true" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="41" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1139#2537#0" />
-            <element signature="e#2621#3386#0" />
           </folding>
         </state>
       </provider>
@@ -713,13 +769,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AllDB/ccc/teacher_pw_index.txt" />
-    <entry file="file://$PROJECT_DIR$/AllDB/ccc/teacher.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="57" lean-forward="true" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DataBase.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -737,6 +786,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AllDB/user.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1482">
+          <caret line="54" column="52" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/selectors.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -751,71 +817,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AllDB/ccc/root.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/User.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="148" column="34" lean-forward="true" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
+          <folding>
+            <element signature="e#504#937#0" />
+            <element signature="e#974#1133#0" />
+            <element signature="e#1599#2652#0" />
+            <element signature="e#2712#3010#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AllDB/ccc/ccc_dic.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="50" selection-start-column="50" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AllDB/ccc/teacher.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Table.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="402" column="68" lean-forward="true" selection-start-line="402" selection-start-column="68" selection-end-line="402" selection-end-column="68" />
+        <state relative-caret-position="147">
+          <caret line="847" lean-forward="true" selection-start-line="847" selection-end-line="847" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1289#3506#0" />
+            <element signature="e#3538#4578#0" />
             <element signature="e#3736#4578#0" />
+            <element signature="e#4612#19557#0" />
             <element signature="e#4847#4923#0" />
             <element signature="e#4961#5092#0" />
             <element signature="e#5181#7147#0" />
             <element signature="e#7193#7750#0" />
             <element signature="e#7804#12696#0" />
             <element signature="e#14556#19557#0" />
+            <element signature="e#19590#23226#0" />
             <element signature="e#19925#22336#0" />
             <element signature="e#22377#23226#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/select.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AllDB/user.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/User.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="136" column="39" lean-forward="true" selection-start-line="136" selection-start-column="39" selection-end-line="136" selection-end-column="39" />
-          <folding>
-            <element signature="e#504#937#0" />
-            <element signature="e#1599#2652#0" />
-            <element signature="e#2712#3010#0" />
-            <element signature="e#3168#3514#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1482">
-          <caret line="54" column="52" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#23554#24462#0" />
+            <element signature="e#26545#26698#0" />
+            <element signature="e#26835#27640#0" />
+            <element signature="e#27748#28350#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/command.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="249" column="7" lean-forward="true" selection-start-line="249" selection-start-column="7" selection-end-line="249" selection-end-column="7" />
+        <state relative-caret-position="2825">
+          <caret line="231" lean-forward="true" selection-start-line="231" selection-end-line="231" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1139#2537#0" />
-            <element signature="e#2621#3386#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Selection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#1365#2399#0" />
+            <element signature="e#2873#2956#0" />
           </folding>
         </state>
       </provider>

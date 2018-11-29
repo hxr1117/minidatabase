@@ -157,5 +157,4 @@ if __name__ == '__main__':
     u = User()
     # u.crate_user("id='test',pw='test'")
     # u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
-    print("'ew".strip("'"))
 

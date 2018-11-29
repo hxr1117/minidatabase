@@ -22,6 +22,7 @@ class Main(object):
 
     def check_right(self, line):
         try:
+
             if line in self.user[2]:
                 return True
         except IndexError:
@@ -98,9 +99,10 @@ class Main(object):
 
             elif line[0] == 'use' and self.check_right(line[0]):
                 if line[1] == 'database':
-                    if line[2] not in self.user[2][0]:
-                        print('无此权限')
-                        continue
+                    if self.user[3][0] != '*':
+                        if line[2] not in self.user[3][0]:
+                            print('无此权限')
+                            continue
                     if line[2] in self.all_db:
                         self.database = line[2]
                         self.all_table = CreateTable(self.database).table()

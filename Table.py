@@ -45,7 +45,11 @@ class CreateTable(object):
 
     def creating(self, command):
         # 接受并用正则简单处理参数
-        table_name, args = re.findall(r'(.*?)\s*?\((.*)\)$', command)[0]  # [table_name, args]
+        try:
+            table_name, args = re.findall(r'(.*?)\s*?\((.*)\)$', command)[0]  # [table_name, args]
+        except IndexError:
+            print('语法错误')
+            return False
         # 判断是否有该表
         if not self.check_name(table_name):
             return False
@@ -729,10 +733,11 @@ class ShowTable(object):
         del tb_dic['foreign']
 
         # 得到所有元组
-        fp = open(self.db_path + value[1] + '.txt', 'r')
-        rows = fp.readlines()
-        rows = [eval(i) for i in rows]
-        fp.close()
+        # fp = open(self.db_path + value[1] + '.txt', 'r')
+        # rows = fp.readlines()
+        # rows = [eval(i) for i in rows]
+        # fp.close()
+        rows = self.get_rows(value[1])
 
         # 输出表头
         for i in tb_dic:
@@ -749,19 +754,113 @@ class ShowTable(object):
                 print('{:<18}'.format(a), end='|')
             print()
 
+    # 输入解析过的table列表和col列表，table和col一一对应
+    # 返回一个table和col匹配的列表
+    def match_table_col(self, tb, col, table):
+        dic = {}
+        for i in table:
+            dic[i] = self.db_dic[i]
+
+        if col[0] == '*':
+            i = table[0]
+            del dic[i]['primary']
+            del dic[i]['foreign']
+            if 'index' in dic[i]:
+                del dic[i]['index']
+            return i, dic[i].keys()  # 返回表名及所有属性
+
+        for i in range(len(col)):
+            if tb[i] != '':  # 该属性有对应的表，直接判断这张表里有没有这个属性就行了
+                if col[i] not in dic[tb[i]]:
+                    print(tb[i]+'表无'+col[i]+'属性')
+            else:
+                ok = 0  # 该属性没有对应的表，要在所有的表里看一遍
+                name = ''
+                for j in dic.keys():
+                    if col[i] in dic[j]:  # 如果该表有这个属性，做个记号
+                        ok += 1
+                        name = j
+                if ok != 1:
+                    print('多表有该属性或无表有该属性')
+                else:
+                    tb[i] = name
+
+        return tb, col
+
+    def get_rows(self, table):
+        fp = open(self.db_path + table + '.txt', 'r')
+        rows = fp.readlines()
+        rows = [eval(i) for i in rows]
+        fp.close()
+        return rows
+
+    # 单条件选择
+    def get_rows_by_condition(self, table, condition, operator, value):
+        rows = self.get_rows(table)
+        ans = []
+        if not condition:
+            return rows
+        for i in rows:
+            if operator == '<':
+                if str(i[condition]) < str(value):
+                    ans.append(i)
+            elif operator == '>':
+                if str(i[condition]) > str(value):
+                    ans.append(i)
+            elif operator == '<=':
+                if str(i[condition]) <= str(value):
+                    ans.append(i)
+            elif operator == '>=':
+                if str(i[condition]) >= str(value):
+                    ans.append(i)
+            elif operator == '!=':
+                if str(i[condition]) != str(value):
+                    ans.append(i)
+            elif operator == '=':
+                if str(i[condition]) == str(value):
+                    ans.append(i)
+        return ans
+
+    # 投影
+    def projection(self, line, table):
+        line = line.split(',')
+        line = [i.strip() for i in line]
+
+        for i in range(len(line)):
+            line[i] = line[i].strip()
+            if line[i] not in self.db_dic[table]:
+                print('该表没有该属性')
+                return False
+
+        rows = self.get_rows(table)
+
+        cols = {}
+        for i in line:
+            cols[i] = []
+
+        for i in rows:
+            for j in line:
+                if j in i:  # 如果该行有该属性
+                    cols[i].append(j)
+                else:
+                    cols[i].append('')
+        return cols
+
 
 if __name__ == '__main__':
-    s = [{'course_id': "'222'", 'student_id': "'444'", 'score': 80},
-         {'course_id': "'111'", 'student_id': "'555'", 'score': 30},
-         {'course_id': "'222'", 'student_id': "'555'", 'score': 80},
-         {'course_id': "'444'", 'student_id': "'555'", 'score': 90},
-         {'course_id': "'222'", 'student_id': "'999'", 'score': 80},
-         {'course_id': "'666'", 'student_id': "'333'", 'score': 30}]
-    pri = ['course_id', 'student_id']
-    s.sort(key=lambda k: ([k[i] for i in pri]))
-    print(s)
+    # s = [{'course_id': "'222'", 'student_id': "'444'", 'score': 80},
+    #      {'course_id': "'111'", 'student_id': "'555'", 'score': 30},
+    #      {'course_id': "'222'", 'student_id': "'555'", 'score': 80},
+    #      {'course_id': "'444'", 'student_id': "'555'", 'score': 90},
+    #      {'course_id': "'222'", 'student_id': "'999'", 'score': 80},
+    #      {'course_id': "'666'", 'student_id': "'333'", 'score': 30}]
+    # pri = ['course_id', 'student_id']
+    # s.sort(key=lambda k: ([k[i] for i in pri]))
+    # print(s)
     # c = AlterTable('ccc', 'teacher')
     # c.add_column('bbb', 'char (10)')
+    s = ShowTable('ccc')
+    print(s.get_rows_by_condition('teacher', '', '', ""))
 
 
 
