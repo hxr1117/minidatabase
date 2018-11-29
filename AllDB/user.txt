@@ -1,2 +1,1 @@
-['test', 'test', ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'use'], ['ccc', '*']]
-['ooo', '', [], []]
+['test', 'test', [], ['ccc', '*']]

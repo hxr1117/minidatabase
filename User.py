@@ -108,7 +108,8 @@ class User(object):
 
     # Delete FROM user //Where User='test' and Host='localhost';
     def delete_user(self, line):
-        id = re.findall('where user=(.*)', line)
+        id = re.findall('where user=(.*)', line)[0]
+        id = id.strip("'")
         j = -1
         for i in range(len(self.user)):
             if self.user[i][0] == id:
@@ -136,6 +137,20 @@ class User(object):
                 if i not in user[3][1]:
                     print('您无权使用该表')
                     return False
+
+    def clear_rights(self, line):
+        line = line.strip()
+        id = re.findall(r"on user=(.*)", line)[0]
+        id = id.strip("'")
+
+        for i in range(len(self.user)):
+            if id == self.user[i][0]:
+                self.user[i][2] = []
+                self.updata_file()
+                return True
+
+        print('无此用户')
+        return False
 
 
 if __name__ == '__main__':

@@ -138,7 +138,7 @@ class Main(object):
 
             elif line[0] == 'delete' and line[1] == 'from' and self.check_right(line[0]):
                 line[2] = line[2].strip()
-                if line[2][:3].lower() == 'user':
+                if line[2][:4].lower() == 'user':
                     if self.user[0] == 'root':
                         User().delete_user(line[2])
                         continue
@@ -216,6 +216,14 @@ class Main(object):
             elif line[0] == 'grant':
                 if self.user[0] == 'root':
                     User().grant_rights(line[1], line[2], self.all_db, self.all_table)
+                else:
+                    print('无此权限')
+
+            elif line[0] == 'clear':
+                if self.user[0] == 'root':
+                    User().clear_rights(line[2])
+                else:
+                    print('无此权限')
 
             else:
                 print('语法错误')
@@ -235,9 +243,10 @@ if __name__ == '__main__':
     9. alter table del column √
     10. update √
     11. create index on table_name(column_name) √
-    12. drop index col_name on tb_name √
-    13. create user id='...',pw='...'
-    14. delete from user where user='...'
+    12. drop index col_name on tb_name   √
+    13. create user id='...',pw='...'  √
+    14. delete from user where user='...'  √
+    15. clear rights //on user='...'  √
     '''
 
     main = Main()
