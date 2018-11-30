@@ -3,7 +3,6 @@ import re
 from index import CreateIndex
 from operator import itemgetter, attrgetter
 from copy import deepcopy
-# import pandas
 
 '''
 data dict:
@@ -229,22 +228,23 @@ class ChangeValue(object):
                 return True
 
     def check_type(self, l, value):
+        a = value.strip("'")
         if l[0] == 'int':
             try:
-                value = int(value)
+                a = int(a)
                 return value
             except ValueError:
                 print('属性类型错误')
                 return False
         elif l[0] == 'float':
             try:
-                value = float(value)
+                a = float(a)
                 return value
             except ValueError:
                 print('属性类型错误')
                 return False
         else:
-            if len(value) <= int(l[1]):
+            if len(a) <= int(l[1]):
                 return value
             else:
                 print('超出属性长度')
@@ -754,7 +754,7 @@ class ShowTable(object):
                 print('{:<18}'.format(a), end='|')
             print()
 
-    # 输入解析过的table列表和col列表，table和col一一对应
+    # 输入解析过的tb列表和col列表，tb和col一一对应
     # 返回一个table和col匹配的列表
     def match_table_col(self, tb, col, table):
         dic = {}
@@ -767,7 +767,7 @@ class ShowTable(object):
             del dic[i]['foreign']
             if 'index' in dic[i]:
                 del dic[i]['index']
-            return i, dic[i].keys()  # 返回表名及所有属性
+            return i, list(dic[i].keys())  # 返回表名及所有属性
 
         for i in range(len(col)):
             if tb[i] != '':  # 该属性有对应的表，直接判断这张表里有没有这个属性就行了
@@ -795,8 +795,9 @@ class ShowTable(object):
         return rows
 
     # 单条件选择
-    def get_rows_by_condition(self, table, condition, operator, value):
-        rows = self.get_rows(table)
+    def get_rows_by_condition(self, table, condition, operator, value, rows=[]):
+        if not rows:
+            rows = self.get_rows(table)
         ans = []
         if not condition:
             return rows
@@ -822,17 +823,21 @@ class ShowTable(object):
         return ans
 
     # 投影
-    def projection(self, line, table):
+    def projection(self, line, table, rows=[]):
         line = line.split(',')
         line = [i.strip() for i in line]
+
+        if not rows:
+            rows = self.get_rows(table)
+
+        if line[0].strip() == '*':
+            return rows
 
         for i in range(len(line)):
             line[i] = line[i].strip()
             if line[i] not in self.db_dic[table]:
                 print('该表没有该属性')
                 return False
-
-        rows = self.get_rows(table)
 
         cols = {}
         for i in line:
@@ -841,10 +846,35 @@ class ShowTable(object):
         for i in rows:
             for j in line:
                 if j in i:  # 如果该行有该属性
-                    cols[i].append(j)
+                    cols[j].append(i[j])
                 else:
-                    cols[i].append('')
+                    cols[j].append('')
         return cols
+
+    # 连接两张表的两个属性
+    def link(self, tb1, tb2, col1, col2, row1=[], row2=[]):
+        if not row1:
+            row1 = self.get_rows(tb1)
+        if not row2:
+            row2 = self.get_rows(tb2)
+
+        if len(row2) < len(row1):  # 保证行数小的在外层循环
+            tb1, tb2 = tb2, tb1
+            col1, col2 = col2, col1
+            row1, row2 = row2, row1
+
+        ans = []  # 储存临时表
+        for i in range(len(row1)):
+            for j in range(len(row2)):
+                if row1[i][col1] == row2[j][col2]:  # 如果这两个属性的值相等
+                    a = {}  # 储存等值的行
+                    for kk in row1[i].keys():
+                        a[tb1+'.'+kk] = row1[i][kk]
+                    for kk in row2[j].keys():
+                        a[tb2+'.'+kk] = row2[j][kk]
+                    ans.append(a)
+
+        return ans
 
 
 if __name__ == '__main__':
@@ -860,7 +890,8 @@ if __name__ == '__main__':
     # c = AlterTable('ccc', 'teacher')
     # c.add_column('bbb', 'char (10)')
     s = ShowTable('ccc')
-    print(s.get_rows_by_condition('teacher', '', '', ""))
+    # print(s.get_rows_by_condition('selection', 'score', '<=', "'70'"))
+    print(s.link('teacher', 'root', 'id', 'pw'))
 
 
 
