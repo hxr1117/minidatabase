@@ -731,12 +731,9 @@ class ShowTable(object):
         tb_dic = self.db_dic[value[1]]
         del tb_dic['primary']
         del tb_dic['foreign']
+        if 'index' in tb_dic:
+            del tb_dic['index']
 
-        # 得到所有元组
-        # fp = open(self.db_path + value[1] + '.txt', 'r')
-        # rows = fp.readlines()
-        # rows = [eval(i) for i in rows]
-        # fp.close()
         rows = self.get_rows(value[1])
 
         # 输出表头
@@ -802,35 +799,40 @@ class ShowTable(object):
         if not condition:
             return rows
         for i in rows:
-            if operator == '<':
-                if str(i[condition]) < str(value):
-                    ans.append(i)
-            elif operator == '>':
-                if str(i[condition]) > str(value):
-                    ans.append(i)
-            elif operator == '<=':
-                if str(i[condition]) <= str(value):
-                    ans.append(i)
-            elif operator == '>=':
-                if str(i[condition]) >= str(value):
-                    ans.append(i)
-            elif operator == '!=':
-                if str(i[condition]) != str(value):
-                    ans.append(i)
-            elif operator == '=':
-                if str(i[condition]) == str(value):
-                    ans.append(i)
+            if condition in i:
+                if operator == '<':
+                    if str(i[condition]) < str(value):
+                        ans.append(i)
+                elif operator == '>':
+                    if str(i[condition]) > str(value):
+                        ans.append(i)
+                elif operator == '<=':
+                    if str(i[condition]) <= str(value):
+                        ans.append(i)
+                elif operator == '>=':
+                    if str(i[condition]) >= str(value):
+                        ans.append(i)
+                elif operator == '!=':
+                    if str(i[condition]) != str(value):
+                        ans.append(i)
+                elif operator == '=':
+                    if str(i[condition]) == str(value):
+                        ans.append(i)
         return ans
 
-    # 投影
+    # 投影，投出一张表的多个属性
     def projection(self, line, table, rows=[]):
-        line = line.split(',')
-        line = [i.strip() for i in line]
+        if not isinstance(line, list):
+            line = line.split(',')
+            line = [i.strip() for i in line]
 
         if not rows:
             rows = self.get_rows(table)
 
-        if line[0].strip() == '*':
+        if not line:
+            return []
+
+        if line[0] == '*':
             return rows
 
         for i in range(len(line)):
@@ -839,17 +841,15 @@ class ShowTable(object):
                 print('该表没有该属性')
                 return False
 
-        cols = {}
-        for i in line:
-            cols[i] = []
+        new_rows = []
+        for i in rows:  # i是元组
+            a = {}  # 临时行
+            for j in line:  # j是属性
+                if j in i:  # 如果该元组有该属性
+                    a[j] = i[j]  # 记住改元组对该属性的值
+            new_rows.append(a)
 
-        for i in rows:
-            for j in line:
-                if j in i:  # 如果该行有该属性
-                    cols[j].append(i[j])
-                else:
-                    cols[j].append('')
-        return cols
+        return new_rows
 
     # 连接两张表的两个属性
     def link(self, tb1, tb2, col1, col2, row1=[], row2=[]):
@@ -864,17 +864,92 @@ class ShowTable(object):
             row1, row2 = row2, row1
 
         ans = []  # 储存临时表
-        for i in range(len(row1)):
-            for j in range(len(row2)):
-                if row1[i][col1] == row2[j][col2]:  # 如果这两个属性的值相等
-                    a = {}  # 储存等值的行
-                    for kk in row1[i].keys():
-                        a[tb1+'.'+kk] = row1[i][kk]
-                    for kk in row2[j].keys():
-                        a[tb2+'.'+kk] = row2[j][kk]
-                    ans.append(a)
-
+        if tb1 == tb2:
+            for i in range(len(row1)):
+                if row1[i][col1] == row2[i][col2]:
+                    ans.append(row1[i])
+        else:
+            for i in range(len(row1)):
+                for j in range(len(row2)):
+                    if row1[i][col1] == row2[j][col2]:  # 如果这两个属性的值相等
+                        a = {}  # 储存等值的行
+                        for kk in row1[i].keys():
+                            a[tb1+'.'+kk] = row1[i][kk]
+                        for kk in row2[j].keys():
+                            a[tb2+'.'+kk] = row2[j][kk]
+                        ans.append(a)
         return ans
+
+    # 笛卡尔积
+    def cartesian_product(self, tb1='', tb2='', row1=[], row2=[]):
+        if not row1:
+            row1 = self.get_rows(tb1)
+        if not row2:
+            row2 = self.get_rows(tb2)
+
+        new_row = []
+        if len(row1) > len(row2):
+            row1, row2 = row2, row1
+
+        print(row1)
+        print(row2)
+        for i in row1:  # 遍历每一行
+            a = {}
+            for kk in i:  # 遍历每一个属性，kk是属性名
+                if tb1:
+                    a[tb1+'.'+kk] = deepcopy(i[kk])
+                else:
+                    a[kk] = deepcopy(i[kk])
+            for j in row2:  # 每个元组
+                for k in j:  # 将每个元组里的属性加到第一个row里的每一行
+                    if tb2:
+                        a[tb2+'.'+k] = deepcopy(j[k])
+                    else:
+                        a[k] = deepcopy(j[k])
+                new_row.append(a)
+
+        return new_row
+
+    # 多表连接 used_tb={tb1:col, tb2:col}///new_tb={tb3:col, tb4:col}
+    def multi_table_link(self, used_table, new_table, row1, table_rows):
+        # row1:used_row, table_rows:all rows after selection
+        used_tb = list(used_table.keys())
+        new_tb = list(new_table.keys())
+
+        # 用过的表的属性肯定带.
+        temp_row = []
+        diff = list(set(new_tb) - set(used_tb))  # 没用过的表
+        seco = list(set(new_tb) - set(diff))[0]  # 再次用来连接的表
+        if len(diff) == 1:  # 用new没用过的表和used里的表通过new没用过的表的属性连接
+            a = new_table[diff[0]]  # 没用过的表中用来连接的属性(row2中的属性
+            b = new_table[seco]  # 用过的表中再次用来连接的属性(row1中的属性
+            b = seco + '.' + b
+
+            row2 = table_rows[diff[0]]  # 没有用过的表的所有元组
+            if len(row1) > len(row2):
+                row2, row1 = row1, row2
+                a, b = b, a
+
+            for i in range(len(row1)):
+                for j in range(len(row2)):
+                    if row1[i][b] == row2[j][a]:
+                        t = {}
+                        for kk in row1[i].keys():
+                            t[kk] = row1[i][kk]
+                        for kk in row2[j].keys():
+                            t[kk] = row2[j][kk]
+                        temp_row.append(t)
+            return temp_row
+
+        elif len(diff) == 2:  # 无重复使用的表,笛卡尔积(循环
+            temp_row = row1
+            for i in seco:
+                row2 = table_rows[i]
+                temp_row = self.cartesian_product(row1=temp_row, row2=row2)
+            return temp_row
+
+        else:  # 这种情况发生不了吧？？？
+            return []
 
 
 if __name__ == '__main__':
@@ -891,7 +966,7 @@ if __name__ == '__main__':
     # c.add_column('bbb', 'char (10)')
     s = ShowTable('ccc')
     # print(s.get_rows_by_condition('selection', 'score', '<=', "'70'"))
-    print(s.link('teacher', 'root', 'id', 'pw'))
+    print(s.cartesian_product('course', 'selection'))
 
 
 
