@@ -253,6 +253,7 @@ def dedute(items, key=None):
             yield item
             seen.add(val)
 
+
 if __name__ == '__main__':
     s = Selected()
     a = [{1:1, 2:2}, {1:1, 2:2}, {2:1, 1:2}]
