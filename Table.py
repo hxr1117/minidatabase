@@ -738,7 +738,7 @@ class ShowTable(object):
 
         # 输出表头
         for i in tb_dic:
-            print('{:<18}'.format(i), end='|')
+            print('{:<18}'.format(i), end='')
         print()
         print('-'*len(tb_dic)*18)
 
@@ -748,7 +748,7 @@ class ShowTable(object):
                     a = i[j]
                 else:
                     a = ''
-                print('{:<18}'.format(a), end='|')
+                print('{:<18}'.format(a), end='')
             print()
 
     # 输入解析过的tb列表和col列表，tb和col一一对应
@@ -821,7 +821,7 @@ class ShowTable(object):
         return ans
 
     # 投影，投出一张表的多个属性
-    def projection(self, line, table, rows=[]):
+    def projection(self, line, table='', rows=[], ok=1):
         if not isinstance(line, list):
             line = line.split(',')
             line = [i.strip() for i in line]
@@ -835,21 +835,34 @@ class ShowTable(object):
         if line[0] == '*':
             return rows
 
-        for i in range(len(line)):
-            line[i] = line[i].strip()
-            if line[i] not in self.db_dic[table]:
-                print('该表没有该属性')
-                return False
+        if ok == 1:  # 第一次投影的时候要判断有没有该属性
+            for i in range(len(line)):
+                line[i] = line[i].strip()
+                if line[i] not in self.db_dic[table]:
+                    print('该表没有该属性')
+                    return False
 
-        new_rows = []
-        for i in rows:  # i是元组
-            a = {}  # 临时行
-            for j in line:  # j是属性
-                if j in i:  # 如果该元组有该属性
-                    a[j] = i[j]  # 记住改元组对该属性的值
-            new_rows.append(a)
+            new_rows = []
+            for i in rows:  # i是元组
+                a = {}  # 临时行
+                for j in line:  # j是属性
+                    if j in i:  # 如果该元组有该属性
+                        a[j] = i[j]  # 记住改元组对该属性的值
+                new_rows.append(a)
 
-        return new_rows
+            return new_rows
+
+        else:  # 最后的一次投影
+            new_rows = []
+            for i in rows:
+                a = {}
+                for j in range(len(line[0])):
+                    if line[0][j] + '.' + line[1][j] in i:
+                        a[line[0][j] + '.' + line[1][j]] = i[line[0][j] + '.' + line[1][j]]
+                    elif line[1][j] in i:
+                        a[line[0][j]+'.'+line[1][j]] = i[line[1][j]]
+                new_rows.append(a)
+            return new_rows
 
     # 连接两张表的两个属性
     def link(self, tb1, tb2, col1, col2, row1=[], row2=[]):
@@ -881,18 +894,16 @@ class ShowTable(object):
         return ans
 
     # 笛卡尔积
-    def cartesian_product(self, tb1='', tb2='', row1=[], row2=[]):
+    def cartesian_product(self, tb1='', tb2='', row1=[], row2=[], ok=1):
         if not row1:
             row1 = self.get_rows(tb1)
         if not row2:
             row2 = self.get_rows(tb2)
 
         new_row = []
-        if len(row1) > len(row2):
+        if len(row1) > len(row2) and ok == 1:
             row1, row2 = row2, row1
 
-        print(row1)
-        print(row2)
         for i in row1:  # 遍历每一行
             a = {}
             for kk in i:  # 遍历每一个属性，kk是属性名

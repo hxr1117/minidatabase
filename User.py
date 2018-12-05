@@ -8,13 +8,14 @@ class User(object):
         fp.close()
         usr = [eval(i) for i in usr]
         self.user = usr
-        self.right = ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'use']
+        self.right = ['select', 'update', 'drop', 'create', 'show', 'desc', 'delete', 'alter', 'insert', 'use', 'sql']
         self.root = ['root', 'root', self.right, ['*', '*']]
 
     # create user //id='...',pw='...'
     def crate_user(self, line):
+        print(line)
         try:
-            id, pw = re.findall('id=(.*?)\s*?,\s*?pw=(.*?)', line)[0]
+            id, pw = re.findall("id='(\w*?)'\s*?,\s*?pw='(\w*?)'", line)[0]
         except ValueError:
             print('语法错误')
             return False
@@ -83,6 +84,8 @@ class User(object):
                 if i not in self.right:
                     print('无此权限')
                     return False
+            if 'sql' not in rights:
+                rights.append('sql')
             self.user[check][2] = rights
 
         self.user[check][3] = [db, tb]
@@ -155,6 +158,6 @@ class User(object):
 
 if __name__ == '__main__':
     u = User()
-    # u.crate_user("id='test',pw='test'")
-    # u.grant_rights('select, all', 'on ccc . * to ("222", "333")', [], '')
+    u.crate_user("id='333', pw='444'")
+
 

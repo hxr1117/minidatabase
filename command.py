@@ -3,6 +3,7 @@ from DataBase import CreateDB, DropDB
 from Table import CreateTable, DropTable, ChangeValue, ShowTable, AlterTable
 from index import CreateIndex
 from User import User
+from Selection import Selected
 
 
 class Main(object):
@@ -161,16 +162,12 @@ class Main(object):
                     show.desc_table(line[1])
 
             elif line[0] == 'select' and self.check_right(line[0]):
-                if line[1] == '*':
-                    if not self.database:
-                        print('请先选择数据库')
-                    else:
-                        a = line[2].split()
-                        if a[1] in self.all_table:
-                            show = ShowTable(self.database)
-                            show.all_rows(line[2])
-                        else:
-                            print('没有该表')
+                if not self.database:
+                    print('请选择数据库')
+                else:
+                    a = line[0] + line[1] + line[2]
+                    s = Selected(self.database)
+                    s.selection(a, self.database)
 
             elif line[0] == 'show' and self.check_right(line[0]):
                 if line[1].lower() == 'tables':
@@ -185,6 +182,10 @@ class Main(object):
                     print('Database')
                     print('-'*8)
                     for i in self.all_db:
+                        print(i)
+                elif line[1].lower() == 'user':
+                    user = User().get_user()
+                    for i in user:
                         print(i)
                 else:
                     print('语法错误')
@@ -249,6 +250,7 @@ if __name__ == '__main__':
     13. create user id='...',pw='...'  √
     14. delete from user where user='...'  √
     15. clear rights //on user='...'  √
+    16. grant rights on db.tb to (id,pw) √
     '''
 
     main = Main()
