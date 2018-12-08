@@ -4,6 +4,13 @@ import os, re
 
 # CREATE INDEX ON table_name (column_name) ;
 class CreateIndex(object):
+    def get_index(self, db, table, col):
+        fp = open('/Users/hexinrong/PycharmProjects/minidatabase/AllDB/'
+                  + db + '/' + table + '_' + col + '_index.txt', 'r')
+        index = fp.readlines()
+        index = [eval(i) for i in index]
+        return index
+
     def crete_index(self, db, line):
         fp = open('/Users/hexinrong/PycharmProjects/minidatabase/AllDB/' + db + '/' + db + '_dic.txt', 'r')
         dic = fp.readlines()[0]

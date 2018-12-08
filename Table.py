@@ -759,12 +759,15 @@ class ShowTable(object):
             dic[i] = self.db_dic[i]
 
         if col[0] == '*':
-            i = table[0]
-            del dic[i]['primary']
-            del dic[i]['foreign']
-            if 'index' in dic[i]:
-                del dic[i]['index']
-            return i, list(dic[i].keys())  # 返回表名及所有属性
+            c = ['primary', 'foreign', 'index']
+            tb = []
+            col = []
+            for i in table:
+                for j in self.db_dic[i]:
+                    if j not in c:
+                        tb.append(i)
+                        col.append(j)
+            return tb, col  # 返回表名及所有属性
 
         for i in range(len(col)):
             if tb[i] != '':  # 该属性有对应的表，直接判断这张表里有没有这个属性就行了
@@ -791,43 +794,127 @@ class ShowTable(object):
         fp.close()
         return rows
 
+    # 返回数据文件的行数范围
+    def index_search(self, table, condition, operator, value, pri=0):
+        index = CreateIndex().get_index(self.db_name, table, condition)
+        new_rows = []  # 有该索引的行数
+        if pri:  # 主索引
+            block = 3
+            i = -1
+            for i in range(len(index)):  # 找到第一个比他大的。因为是主索引，所以不可能重复
+                if index[i][0] > value:
+                    break
+            print(i)
+            i = i * block
+            new_rows = [x for x in range(i-block, i)]
+            return new_rows
+
+        else:
+            i = -1
+            j = 0
+            for i in range(len(index)):
+                if index[i][0] == value:
+                    j += 1  # 找到第一个相等的索引值的索引在的行
+                if index[i][0] > value:  # 找到第一个比要找的索引大的索引值。之后的索引肯定都比现在的大。
+                    break
+            j = i - j
+            i -= 1
+
+            if operator == '<':
+                new_rows = [index[x][1] for x in range(0, j)]
+            elif operator == '>':
+                new_rows = [index[x][1] for x in range(j+1, -1)]
+            elif operator == '<=':
+                new_rows = [index[x][1] for x in range(0, j+1)]
+            elif operator == '>=':
+                new_rows = [index[x][1] for x in range(j, -1)]
+            elif operator == '!=':
+                new_rows = [index[x][1] for x in range(0, j)]
+                new_rows += [index[x][1] for x in range(i+1, -1)]
+            elif operator == '=':
+                new_rows = [index[x][1] for x in range(j, i+1)]
+            return new_rows
+
     # 单条件选择
     def get_rows_by_condition(self, table, condition, operator, value, rows=[]):
         if not rows:
             rows = self.get_rows(table)
-        ans = []
+        ans = index = pri = []
+        if 'index' in self.db_dic[table]:
+            index = self.db_dic[table]['index']
+            pri = self.db_dic[table]['primary']
         if not condition:
             return rows
-        for i in rows:
-            if condition in i:
-                if operator == '<':
-                    if str(i[condition]) < str(value):
-                        ans.append(i)
-                elif operator == '>':
-                    if str(i[condition]) > str(value):
-                        ans.append(i)
-                elif operator == '<=':
-                    if str(i[condition]) <= str(value):
-                        ans.append(i)
-                elif operator == '>=':
-                    if str(i[condition]) >= str(value):
-                        ans.append(i)
-                elif operator == '!=':
-                    if str(i[condition]) != str(value):
-                        ans.append(i)
-                elif operator == '=':
-                    if str(i[condition]) == str(value):
-                        ans.append(i)
+
+        import time
+        start = time.clock()
+
+        if condition in index:  # 如果这个属性有索引
+            if condition in pri:  # 如果是主索引
+                rows_list = self.index_search(table, condition, operator, value, 1)
+                print(rows_list)
+                start = rows_list[0]
+                end = rows_list[-1]
+                i = -1
+                for i in range(start, end):
+                    if rows[i][condition] == value:
+                        if operator == '<':
+                            ans = [rows[x] for x in range(0, i)]
+                        elif operator == '>':
+                            ans = [rows[x] for x in range(i+1, len(rows))]
+                        elif operator == '<=':
+                            ans = [rows[x] for x in range(0, i+1)]
+                        elif operator == '>=':
+                            ans = [rows[x] for x in range(i, len(rows))]
+                        elif operator == '!=':
+                            ans = [rows[x] for x in range(0, i)]
+                            ans += [rows[x] for x in range(i+1, len(rows))]
+                        elif operator == '=':
+                            ans = [rows[i]]
+                        break
+
+            else:  # 辅助索引
+                rows_list = self.index_search(table, condition, operator, value)
+                print(rows_list)
+                for i in rows_list:
+                    ans.append(rows[i])
+        else:
+            for i in rows:
+                if condition in i:
+                    if operator == '<':
+                        if str(i[condition]) < str(value):
+                            ans.append(i)
+                    elif operator == '>':
+                        if str(i[condition]) > str(value):
+                            ans.append(i)
+                    elif operator == '<=':
+                        if str(i[condition]) <= str(value):
+                            ans.append(i)
+                    elif operator == '>=':
+                        if str(i[condition]) >= str(value):
+                            ans.append(i)
+                    elif operator == '!=':
+                        if str(i[condition]) != str(value):
+                            ans.append(i)
+                    elif operator == '=':
+                        if str(i[condition]) == str(value):
+                            ans.append(i)
+        end = time.clock()
+        print('runtime %s Seconds' % (end-start))
         return ans
 
     # 投影，投出一张表的多个属性
     def projection(self, line, table='', rows=[], ok=1):
-        if not isinstance(line, list):
+        if not isinstance(line, list) and not isinstance(line, tuple):
+            print(line)
             line = line.split(',')
             line = [i.strip() for i in line]
 
-        if not rows:
-            rows = self.get_rows(table)
+        try:
+            if not rows:
+                rows = self.get_rows(table)
+        except FileNotFoundError:
+            return []
 
         if not line:
             return []
@@ -912,13 +999,13 @@ class ShowTable(object):
                 else:
                     a[kk] = deepcopy(i[kk])
             for j in row2:  # 每个元组
+                b = deepcopy(a)
                 for k in j:  # 将每个元组里的属性加到第一个row里的每一行
                     if tb2:
-                        a[tb2+'.'+k] = deepcopy(j[k])
+                        b[tb2+'.'+k] = deepcopy(j[k])
                     else:
-                        a[k] = deepcopy(j[k])
-                new_row.append(a)
-
+                        b[k] = deepcopy(j[k])
+                new_row.append(b)
         return new_row
 
     # 多表连接 used_tb={tb1:col, tb2:col}///new_tb={tb3:col, tb4:col}

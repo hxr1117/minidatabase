@@ -44,7 +44,7 @@ class Selected(object):
                 print('{:<20}'.format(a), end='')
             print()
 
-    # select * from 关系名 where 条件表达式
+    # select * from 关系名 //where 条件表达式
     def condition_interpret(self, line):
         line = line.split('and')
         line = [i.strip() for i in line]
@@ -60,8 +60,6 @@ class Selected(object):
                         condition.append(i[:j])
                 else:  # 上一个是操作符，这个有可能也是
                     if i[j] in self.operate:  # 这个也是操作符
-                        # where id <= 1000
-                        # 01234567890
                         oper.append(i[j-1:j+1])
                         value.append(i[j+1:])
                     else:  # 这一个不是操作符
@@ -69,7 +67,6 @@ class Selected(object):
                         value.append(i[j:])
                     ok = 0
                     break
-
         condition, value = [i.strip() for i in condition], [i.strip() for i in value]
         return condition, oper, value
 
@@ -127,6 +124,7 @@ class Selected(object):
 
             # 匹配属性里的表名和属性
             attribute = list(ShowTable(database).match_table_col(attribute[0], attribute[1], table))
+            print(attribute)
             for i in range(len(attribute[0])):
                 projection_list[attribute[0][i]].append(attribute[1][i])
 
@@ -174,7 +172,8 @@ class Selected(object):
             # 如果任何一个选择条件的结果为空，返回值都应该是空
             for i in tables_rows:
                 if not tables_rows[i]:
-                    return []
+                    self.show_last_line([], attribute)
+                    return
             # 连接
             # link(self, tb1, tb2, col1, col2, row1=[], row2=[]):
             new_rows = []
@@ -235,37 +234,19 @@ class Selected(object):
             if len(table) > 1:
                 for i in range(1, len(table)):
                     new_rows = s.cartesian_product(tb2=table[i], row1=new_rows, ok=0)
-                    print(new_rows)
 
         # 最后结果的投影
         new_rows = s.projection(attribute, rows=new_rows, ok=0)
 
-        # 差去重
+        # 去重
+        print(new_rows)
         new_rows = self.distinction(new_rows)
         self.show_last_line(new_rows, attribute)
 
 
-def dedute(items, key=None):
-    seen = set()
-    for item in items:
-        val = item if key is None else key(item)
-        if val not in seen:
-            yield item
-            seen.add(val)
-
-
 if __name__ == '__main__':
     s = Selected()
-    a = [{1:1, 2:2}, {1:1, 2:2}, {2:1, 1:2}]
-    # s.projection('id,pw', 'root', 'bbb')
-    # s.where("pw='123' and id != 1000")
     line = "select id, sex from teacher, root"
-    # table = s.table_interpret('teacher')
-    # tb, col = s.attribute_interpret('3')
-    # print(tb, col)
-    # t = ShowTable('ccc')
-    # tb, col = t.match_table_col(tb, col, table)
-    # s.between_select_from('a.b, c')
-    s.selection("select course.name, teacher.name from course, teacher where course.tid=teacher.id", 'ccc')
+    s.selection("select * from teacher where teacher.id='333'", 'ccc')
     # print(list(a[0].values()))
     # print(list(dedute(a, key=lambda x: tuple(x.values()))))
